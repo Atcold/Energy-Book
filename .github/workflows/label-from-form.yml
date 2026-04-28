@@ -1,0 +1,33 @@
+name: Label from form
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const valid = ['typo', 'error', 'confusion', 'notation', 'exercise', 'attribution', 'suggestion'];
+            const body = context.payload.issue.body || '';
+            const m = body.match(/###\s*Category\s*\n+\s*([a-z]+)/i);
+            if (!m) return;
+            const label = m[1].toLowerCase();
+            if (!valid.includes(label)) return;
+            try {
+              await github.rest.issues.getLabel({ ...context.repo, name: label });
+            } catch (e) {
+              if (e.status === 404) {
+                await github.rest.issues.createLabel({ ...context.repo, name: label });
+              } else { throw e; }
+            }
+            await github.rest.issues.addLabels({
+              ...context.repo,
+              issue_number: context.issue.number,
+              labels: [label],
+            });

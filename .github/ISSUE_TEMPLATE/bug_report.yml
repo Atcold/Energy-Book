@@ -5,31 +5,30 @@ body:
     id: category
     attributes:
       label: Category
-      description: Also apply the matching label from the sidebar.
+      description: |
+        - `[typo]`: spelling, grammar, or rendering errors
+        - `[error]`: mathematical or factual mistakes
+        - `[confusion]`: unclear passages needing rewording or extra explanation
+        - `[notation]`: inconsistent or undeclared notation
+        - `[exercise]`: suggestions for new exercises or problems with existing ones
+        - `[attribution]`: missing or incorrect credits
+        - `[suggestion]`: ideas for improving an explanation, adding an analogy, or covering a related topic
       options:
-        - typo — spelling, grammar, or rendering errors
-        - error — mathematical or factual mistakes
-        - confusion — unclear passages needing rewording or extra explanation
-        - notation — inconsistent or undeclared notation
-        - exercise — suggestions for new exercises or problems with existing ones
-        - attribution — missing or incorrect credits
-        - suggestion — ideas for improving an explanation, adding an analogy, or covering a related topic
+        - typo
+        - error
+        - confusion
+        - notation
+        - exercise
+        - attribution
+        - suggestion
     validations:
       required: true
   - type: input
     id: version
     attributes:
-      label: Version
-      description: Found on the review copy notice (e.g. 0.10.1).
-      placeholder: 0.10.1
-    validations:
-      required: true
-  - type: input
-    id: build
-    attributes:
-      label: Build
-      description: Git hash shown next to the version.
-      placeholder: a1b2c3d
+      label: Version (build)
+      description: Found on the review copy notice and on the header.
+      placeholder: 0.10.1 (a1b2c3d)
     validations:
       required: true
   - type: textarea
